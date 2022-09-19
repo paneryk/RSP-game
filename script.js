@@ -1,8 +1,7 @@
-const weapons = ['rock', 'scissors', 'paper'];
-let i = 0;
+const weapons = ['rock', 'scissors', 'paper']; //array of computer choices
+let i = 0; //i means turns played
 let userPoints = 0;
 let computerPoints = 0; 
-
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
@@ -27,7 +26,6 @@ function game(evt) {
     i += 1;
     console.log(i);
 
-
     let getComputerChoice = (array) => array[Math.floor(Math.random()*array.length)];
     let computerSelection = getComputerChoice(weapons);
     let playerSelection = evt;
@@ -39,23 +37,26 @@ function game(evt) {
 
         if (result == "player") {
             userPoints = userPoints+1;
-            consoleLog.textContent = "The winner of round no  is PLAYER! He played "+playerSelection+" agains computer's "+computerSelection;
-            score.textContent = "Score: player - "+userPoints+", computer - "+computerPoints;
+            consoleLog.textContent = "The winner of round no "+i+" is PLAYER! He played "+playerSelection+" agains computer's "+computerSelection;
+            score.textContent = "Total score: player - "+userPoints+", computer - "+computerPoints;
         }
         else if (result == "computer") {
             computerPoints = computerPoints+1;
-            consoleLog.textContent = "The winner of round no  is COMPUTER! It played "+computerSelection+" agains player's "+playerSelection;
+            consoleLog.textContent = "The winner of round no "+i+" is COMPUTER! It played "+computerSelection+" agains player's "+playerSelection;
             score.textContent = "Total score: player - "+userPoints+", computer - "+computerPoints;
         }
         else if (result == "draw") {
-            consoleLog.textContent = "We have a DRAW in round no! Computer and player both played "+computerSelection;
+            consoleLog.textContent = "We have a DRAW in round no "+i+"! Computer and player both played "+computerSelection;
             score.textContent = "Total score: player - "+userPoints+", computer - "+computerPoints;
         }
     
     div.appendChild(consoleLog);
 
     if (userPoints>=5 || computerPoints >= 5) {
-        consoleLog.textContent = "END OF THE GAME";
+        let winner = '';
+        if (computerPoints>userPoints) winner = "COMPUTER";
+        else winner = "USER";
+        consoleLog.innerHTML = "<b>END OF THE GAME. The winner of a "+(i-1)+" turns game is "+winner+"</b>";
         div.appendChild(consoleLog);
         buttons.forEach((button) => {button.disabled = true;})
     }
@@ -63,16 +64,4 @@ function game(evt) {
     return gameStatus;
     
     } 
-/*if (computerPoints > userPoints) {
-    console.log("The winner of 5 turn game is a COMPUTER! It has won by "+(computerPoints-userPoints)+" points.");
-}
-else if (userPoints > computerPoints) {
-    console.log("The winner of 5 turn game is a PLAYER! He won by "+(userPoints-computerPoints)+ "points.");
-}
-else {
-    console.log("We have a draw! Final result is"+userPoints+":"+computerPoints);
-}
-}
 
-game();
-*/
